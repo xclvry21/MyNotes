@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class Admin extends Authenticatable
 {
@@ -22,7 +23,7 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
-        'image'
+        'profile_image'
     ];
 
     /**
@@ -43,4 +44,17 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function admin_create($data)
+    {
+        return DB::table('admins')
+            ->insert([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'profile_image' => $data['profile_image_name'],
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+    }
 }
