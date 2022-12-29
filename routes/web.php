@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+/**
+ * ==================== ADMIN ROUTE ====================
+ */
+Route::prefix('admin')->group(function () {
+    Route::controller(AdminController::class)->group(function () {
+        Route::get('/login', 'login_form')->name('admin_login_form');
+        // Route::get('/register', 'create')->name('admin.register_form');
+        Route::get('/dashboard', 'index')->name('admin.dashboard')->middleware('admin');
+        Route::get('/logout', 'logout')->name('admin.logout');
+
+        Route::post('/login', 'login')->name('admin.login');
+        
+        // Route::post('/register', 'store')->name('admin.register');
+    });
+});
+
+require __DIR__ . '/auth.php';
