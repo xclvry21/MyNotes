@@ -99,7 +99,7 @@ class AdminController extends Controller
             'email' => $request['email'],
             'password' => $request['password']
         ])) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.dashboard')->with('success', "You've login successfully");
         } else {
             return back()->with('error', 'Invalid credentials');
         }
@@ -112,6 +112,6 @@ class AdminController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('admin_login_form')->with('error', "You've logout successfully");
+        return redirect()->route('admin_login_form')->with('success', "You've logout successfully");
     }
 }
