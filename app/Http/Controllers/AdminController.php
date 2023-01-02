@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -119,9 +120,20 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(Request $request)
     {
-        //
+        $currentData = Admin::findOrFail($request->id);
+
+        //create first the folder
+        $destination = '/storage/admin_images/';
+        $path = public_path() . $destination;
+
+        //delete the file
+        File::delete($path . $currentData->profile_image);
+
+        $currentData->delete();
+
+        return redirect()->route('admin.list');
     }
 
     public function login_form()
@@ -149,5 +161,13 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('admin_login_form')->with('success', "You've logout successfully");
+    }
+
+    public function admin_list()
+    {
+        return view('admin.admin.admin_all', [
+            'title' => 'Admin List',
+            'admins' => Admin::all()
+        ]);
     }
 }

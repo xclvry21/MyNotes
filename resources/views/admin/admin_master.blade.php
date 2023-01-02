@@ -27,6 +27,11 @@
         <!-- App Css-->
         <link href="{{ asset('dashboard_body') }}/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 
+        <!-- DataTables -->
+        <link href="{{ asset('dashboard_body') }}/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('dashboard_body') }}/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('dashboard_body') }}/assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css" >
 
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
@@ -105,8 +110,8 @@
         <!-- App js -->
         <script src="{{ asset('dashboard_body') }}/assets/js/app.js"></script>
 
+        {{-- Toastr --}}
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
         <script>
         @if(Session::has('message'))
         var type = "{{ Session::get('alert-type','info') }}"
@@ -139,9 +144,26 @@
         <!-- Required datatable js -->
         <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
         <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <!-- Buttons examples -->
+        <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+        <script src="{{ asset('dashboard_body') }}/assets/libs/jszip/jszip.min.js"></script>
+        <script src="{{ asset('dashboard_body') }}/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+        <script src="{{ asset('dashboard_body') }}/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+        <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+        <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+        <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
+        <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+        <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+
+        <!-- Responsive examples -->
+        <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
         <!-- Datatable init js -->
         <script src="{{ asset('dashboard_body') }}/assets/js/pages/datatables.init.js"></script>
-
+        
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <script src="{{ asset('dashboard_body') }}/assets/js/code.js"></script>

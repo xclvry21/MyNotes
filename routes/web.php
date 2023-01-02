@@ -38,6 +38,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/register', 'create')->name('admin.register_form');
             Route::get('/dashboard', 'index')->name('admin.dashboard');
             Route::get('/logout', 'logout')->name('admin.logout');
+            Route::get('/admin_list', 'admin_list')->name('admin.list');
+            Route::get('/admin/{id}', 'destroy')->name('admin.destroy');
 
             Route::post('/register', 'store')->name('admin.register');
         });

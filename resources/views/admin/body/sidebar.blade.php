@@ -31,7 +31,7 @@
                         <span>Admin</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">All Admin</a></li>
+                        <li><a href="{{ route('admin.list') }}">All Admin</a></li>
                         <li><a href="{{ route('admin.register_form') }}">Register Admin</a></li>                            
                     </ul>
                 </li>
