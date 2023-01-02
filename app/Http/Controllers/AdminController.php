@@ -86,9 +86,10 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function show(Admin $admin)
+    public function show(Request $request)
     {
-        //
+        $admin = Admin::find($request->id);
+        return response()->json($admin);
     }
 
     /**

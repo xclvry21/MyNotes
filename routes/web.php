@@ -39,13 +39,13 @@ Route::prefix('admin')->group(function () {
             Route::get('/dashboard', 'index')->name('admin.dashboard');
             Route::get('/logout', 'logout')->name('admin.logout');
             Route::get('/admin_list', 'admin_list')->name('admin.list');
+            Route::get('/admin/show/{id}', 'show')->name('admin.show');
             Route::get('/admin/{id}', 'destroy')->name('admin.destroy');
 
             Route::post('/register', 'store')->name('admin.register');
         });
         Route::get('/login', 'login_form')->name('admin_login_form');
         Route::post('/login', 'login')->name('admin.login');
-        
     });
 });
 

@@ -163,12 +163,37 @@
 
         <!-- Datatable init js -->
         <script src="{{ asset('dashboard_body') }}/assets/js/pages/datatables.init.js"></script>
-        
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <script src="{{ asset('dashboard_body') }}/assets/js/code.js"></script>
 
         <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js" ></script>
+        
+        {{-- admin modal --}}
+        <script type='text/javascript'>
+            $(document).ready(function () {
+                 $('body').on('click', '#show-admin', function () {
+                   var userURL = $(this).data('url');
+                   var base_url = window.location.origin;
+                   $('#adminShowModal').modal('show');
+                   $.get(userURL, function (data) {
+                       $('#adminShowModal').modal('show');
+                       
+                       if(data.profile_image){
+                            $('#imgsrc').attr('src', base_url+"/storage/admin_images/"+data.profile_image);
+                       }else{
+                            $('#imgsrc').attr('src', base_url+"/images/no-image.jpg");
+                       }
+
+                       $('#admin-name').text(data.name);
+                       $('#admin-email').text(data.email);
+                       
+                   })
+                });
+                 
+             });
+         </script>
     </body>
 
 </html>
