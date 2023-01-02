@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreTagRequest;
 use App\Http\Requests\UpdateTagRequest;
 
 class TagController extends Controller
 {
+    private $tagModel;
+
+    public function __construct()
+    {
+        $this->tagModel = new Tag();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,10 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        return view('user.tag.tag_all', [
+            'title' => 'Tag List',
+            'tags' => Tag::latest()->get()
+        ]);
     }
 
     /**
@@ -25,7 +37,9 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.tag.tag_create', [
+            'title' => 'Create Tag'
+        ]);
     }
 
     /**
@@ -34,9 +48,16 @@ class TagController extends Controller
      * @param  \App\Http\Requests\StoreTagRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTagRequest $request)
+    public function store(Request $request)
     {
-        //
+        $data = [
+            'title' => $request->title,
+            'user_id' => Auth::user()->id,
+        ];
+
+        $this->tagModel->tag_store($data);
+
+        return redirect()->route('tag.create')->with('success', "Tag added successfully");
     }
 
     /**
@@ -79,8 +100,11 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tag $tag)
+    public function destroy(Request $request)
     {
-        //
+        $currentData = Tag::findOrFail($request->id);
+        $currentData->delete();
+
+        return redirect()->route('tag.index');
     }
 }

@@ -33,8 +33,8 @@
                         <span>Tags</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">All Tags</a></li>
-                        <li><a href="#">Create Tag</a></li>                        
+                        <li><a href="{{ route('tag.index') }}">All Tags</a></li>
+                        <li><a href="{{ route('tag.create') }}">Create Tag</a></li>                        
                     </ul>
                 </li>
 
