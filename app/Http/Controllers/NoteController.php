@@ -28,7 +28,11 @@ class NoteController extends Controller
     {
         return view('user.note.note_all', [
             'title' => 'Note List',
-            'notes' => Note::where('user_id', Auth::user()->id)->latest()->get(),
+            'notes' => Note::where([
+                'user_id' => Auth::user()->id,
+                'is_archive' => 0,
+                'is_trash' => 0
+            ])->latest()->get(),
             'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get()
         ]);
     }
@@ -143,7 +147,32 @@ class NoteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Note $note)
+
+    public function archive(Request $request)
     {
-        //
+        $currentData = Note::findOrFail($request->id);
+
+        if ($currentData->user_id != Auth::user()->id) {
+            return redirect()->route('note.index')->with('error', "Invalid action");
+        } else {
+            Note::where('id', $request->id)->update([
+                'is_archive' => 1
+            ]);
+            return redirect()->route('note.index')->with('success', "Note archived successfully");
+        }
+    }
+
+    public function delete(Request $request)
+    {
+        $currentData = Note::findOrFail($request->id);
+
+        if ($currentData->user_id != Auth::user()->id) {
+            return redirect()->route('note.index')->with('error', "Invalid action");
+        } else {
+            Note::where('id', $request->id)->update([
+                'is_trash' => 1
+            ]);
+            return redirect()->route('note.index')->with('success', "Note deleted successfully");
+        }
     }
 }

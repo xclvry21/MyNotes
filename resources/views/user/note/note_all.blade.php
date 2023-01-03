@@ -33,9 +33,9 @@
                                         <td>          
                                             <a href="{{ route('note.edit', $note->id) }}" id="show" class="btn btn-primary sm waves-effect waves-light"><i class="far fa-edit" ></i></a>
 
-                                            <a href="#" class="btn btn-secondary sm" title="Archive" id="archive"> <i class="mdi mdi-archive-arrow-down-outline"></i></a>
+                                            <a href="{{ route('note.archive', $note->id) }}" class="btn btn-secondary sm" title="Archive" id="archive"> <i class="mdi mdi-archive-arrow-down-outline"></i></a>
 
-                                            <a href="{{ route('tag.destroy', $note->id) }}" class="btn btn-danger sm" title="Delete" id="delete"> <i class="fas fa-trash" ></i></a>
+                                            <a href="{{ route('note.delete', $note->id) }}" class="btn btn-danger sm" title="Delete" id="delete"> <i class="fas fa-trash" ></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

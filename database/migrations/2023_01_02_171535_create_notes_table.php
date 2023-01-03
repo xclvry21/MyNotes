@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('body');
             $table->text('tags')->nullable();
             $table->boolean('is_trash')->default(0);
-            $table->boolean('is_achive')->default(0);
+            $table->boolean('is_archive')->default(0);
             $table->timestamps();
         });
     }

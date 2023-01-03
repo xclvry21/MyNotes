@@ -11,7 +11,7 @@ class Note extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'tags', 'body'
+        'title', 'tags', 'body', 'is_trash', 'is_archive'
     ];
 
     public function note_store($data)
