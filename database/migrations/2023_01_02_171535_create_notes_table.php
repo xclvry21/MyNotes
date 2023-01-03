@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('body');
-            $table->text('tags');
+            $table->text('tags')->nullable();
             $table->boolean('is_trash')->default(0);
             $table->boolean('is_achive')->default(0);
             $table->timestamps();

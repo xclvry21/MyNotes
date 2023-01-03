@@ -35,7 +35,9 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css" >
 
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
-        
+
+        {{-- Select2 (multi select dropdown) --}}
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     </head>
 
@@ -170,6 +172,9 @@
 
         <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js" ></script>
         
+        {{-- select2 --}}
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        
         {{-- tag modal --}}
         <script type='text/javascript'>
             $(document).ready(function () {
@@ -186,7 +191,7 @@
                    
              });
          </script>
-    
+
     </body>
 
 </html>
