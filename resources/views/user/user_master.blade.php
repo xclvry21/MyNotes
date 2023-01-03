@@ -186,7 +186,7 @@
         {{-- tag modal --}}
         <script type='text/javascript'>
             $(document).ready(function () {
-                $('body').on('click', '#show-tag', function () {
+                $('body').on('click', '#tag-edit', function () {
                    var userURL = $(this).data('url');
                    var base_url = window.location.origin;
                    $('#tagShowModal').modal('show');

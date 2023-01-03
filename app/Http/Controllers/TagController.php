@@ -67,13 +67,6 @@ class TagController extends Controller
      */
     public function show(Request $request)
     {
-        $tag = Tag::find($request->id);
-
-        if ($tag->user_id != Auth::user()->id) {
-            return redirect()->route('tag.index')->with('error', "Invalid action");
-        } else {
-            return response()->json($tag);
-        }
     }
 
     /**
@@ -82,8 +75,15 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tag $tag)
+    public function edit(Request $request)
     {
+        $tag = Tag::find($request->id);
+
+        if ($tag->user_id != Auth::user()->id) {
+            return redirect()->route('tag.index')->with('error', "Invalid action");
+        } else {
+            return response()->json($tag);
+        }
     }
 
     /**

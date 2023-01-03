@@ -24,14 +24,14 @@
                                 @php
                                     $i = 1
                                 @endphp
-                                @foreach ($tags as $tags)
+                                @foreach ($tags as $tag)
                                     <tr>
                                         <td>{{$i++}}</td>
-                                        <td>{{$tags->title}}</td>
+                                        <td>{{$tag->title}}</td>
                                         <td>          
-                                            <a href="javascript:void(0)" id="show-tag" data-url="{{ route('tag.show', $tags->id) }}" class="btn btn-primary sm waves-effect waves-light"><i class="far fa-edit" ></i></a>
+                                            <a href="javascript:void(0)" id="tag-edit" data-url="{{ route('tag.edit', $tag->id) }}" class="btn btn-primary sm waves-effect waves-light"><i class="far fa-edit" ></i></a>
 
-                                            <a href="{{ route('tag.destroy', $tags->id) }}" class="btn btn-danger sm" title="Delete" id="delete"> <i class="fas fa-trash" ></i></a>
+                                            <a href="{{ route('tag.destroy', $tag->id) }}" class="btn btn-danger sm" title="Delete" id="delete"> <i class="fas fa-trash" ></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
