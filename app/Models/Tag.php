@@ -23,4 +23,13 @@ class Tag extends Model
                 'created_at' => date('Y-m-d H:i:s')
             ]);
     }
+
+    public function tag_update($data, $id){
+        return DB::table('tags')
+            ->where('id', '=', $id)
+            ->update([
+                'title' => $data['title'],
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+    }
 }

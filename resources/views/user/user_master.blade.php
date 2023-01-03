@@ -169,6 +169,24 @@
         <script src="{{ asset('dashboard_body') }}/assets/js/code.js"></script>
 
         <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js" ></script>
+        
+        {{-- tag modal --}}
+        <script type='text/javascript'>
+            $(document).ready(function () {
+                $('body').on('click', '#show-tag', function () {
+                   var userURL = $(this).data('url');
+                   var base_url = window.location.origin;
+                   $('#tagShowModal').modal('show');
+                   $.get(userURL, function (data) {
+                       $('#tagShowModal').modal('show');   
+                       $('#tag_id').val(data.id);                    
+                       $('#tag_title').val(data.title);   
+                   })
+                });
+                   
+             });
+         </script>
+    
     </body>
 
 </html>

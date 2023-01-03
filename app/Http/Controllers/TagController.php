@@ -26,7 +26,7 @@ class TagController extends Controller
     {
         return view('user.tag.tag_all', [
             'title' => 'Tag List',
-            'tags' => Tag::latest()->get()
+            'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get()
         ]);
     }
 
@@ -50,13 +50,12 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'title' => $request->title,
-            'user_id' => Auth::user()->id,
-        ];
+        $data = $request->validate([
+            'title' => 'required',
+        ]);
 
+        $data['user_id'] = Auth::user()->id;
         $this->tagModel->tag_store($data);
-
         return redirect()->route('tag.create')->with('success', "Tag added successfully");
     }
 
@@ -66,9 +65,15 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $tag)
+    public function show(Request $request)
     {
-        //
+        $tag = Tag::find($request->id);
+
+        if ($tag->user_id != Auth::user()->id) {
+            return redirect()->route('tag.index')->with('error', "Invalid action");
+        } else {
+            return response()->json($tag);
+        }
     }
 
     /**
@@ -79,7 +84,6 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
     }
 
     /**
@@ -89,9 +93,18 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTagRequest $request, Tag $tag)
+    public function update(Request $request)
     {
-        //
+        $data = [
+            'title' => $request->tag_title,
+        ];
+
+        if ($data['title']) {
+            $this->tagModel->tag_update($data, $request->tag_id);
+            return redirect()->route('tag.index')->with('success', "Tag updated successfully");
+        } else {
+            return redirect()->route('tag.index')->with('error', "Tag title must not be empty");
+        }
     }
 
     /**

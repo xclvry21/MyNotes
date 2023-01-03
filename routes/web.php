@@ -49,4 +49,16 @@ Route::prefix('admin')->group(function () {
     });
 });
 
+Route::controller(TagController::class)->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/tag', 'index')->name('tag.index');
+        Route::get('/tag/create', 'create')->name('tag.create');
+        Route::get('/tag/show/{id}', 'show')->name('tag.show');
+        Route::get('/tag/{id}', 'destroy')->name('tag.destroy');
+
+        Route::post('/tag/store', 'store')->name('tag.store');
+        Route::put('/tag', 'update')->name('tag.update');
+    });
+});
+
 require __DIR__ . '/auth.php';
