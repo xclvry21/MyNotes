@@ -25,4 +25,16 @@ class Note extends Model
                 'created_at' => date('Y-m-d H:i:s')
             ]);
     }
+
+    public function note_update($data, $id)
+    {
+        return DB::table('notes')
+            ->where('id', '=', $id)
+            ->update([
+                'title' => $data['title'],
+                'tags' => $data['tags'],
+                'body' => $data['body'],
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+    }
 }

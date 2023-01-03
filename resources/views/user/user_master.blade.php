@@ -171,10 +171,18 @@
         <script src="{{ asset('dashboard_body') }}/assets/js/code.js"></script>
 
         <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js" ></script>
+
+        <!-- materialdesign icon js-->
+        <script src="{{ asset('dashboard_body') }}/assets/js/pages/materialdesign.init.js"></script>
         
         {{-- select2 --}}
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        
+        <script>
+            $(document).ready(function() {
+                $('.js-example-basic-multiple').select2();
+            });
+        </script>
+
         {{-- tag modal --}}
         <script type='text/javascript'>
             $(document).ready(function () {

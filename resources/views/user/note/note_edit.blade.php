@@ -12,12 +12,13 @@
                     <div class="card-body">
                         <h4 class="card-title mb-4">{{ $title }}</h4>
 
-                        <form action="{{ route('note.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('note.update', $note->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="row mb-3">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Title</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" id="example-text-input" value="{{ old('title') }}" name="title">
+                                    <input class="form-control" type="text" id="example-text-input" value="{{ $note->title }}" name="title">
                                     @error('title')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -30,7 +31,7 @@
                                 <div class="col-sm-10">
                                     <select class="form-select js-example-basic-multiple" aria-label="Default select example" name="tag_ids[]" multiple="multiple">
                                         @foreach ($tags as $tag)
-                                            <option value="{{ $tag->id }}">{{ $tag->title }}</option>
+                                            <option value="{{ $tag->id }}" {{ in_array($tag->id, $note_tags) ? 'selected' : '' }}>{{ $tag->title }}</option>
                                         @endforeach
                                     </select>   
                                 </div>
@@ -38,11 +39,11 @@
                             <!-- end row -->
                             
                             <div class="row mb-3">
-                                <textarea id="elm1" name="body"></textarea>
+                                <textarea id="elm1" name="body">{!! decrypt($note->body) !!}</textarea>
                             </div>
                             <!-- end row -->
                             
-                            <input type="submit" class="btn btn-primary waves-effect waves-light" value="Create">
+                            <input type="submit" class="btn btn-primary waves-effect waves-light" value="Update">
                              
                         </form>
 
