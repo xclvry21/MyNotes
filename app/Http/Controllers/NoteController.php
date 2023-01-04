@@ -133,10 +133,10 @@ class NoteController extends Controller
         $data['body'] = encrypt($request->body);
 
         if ($currentData->user_id != Auth::user()->id) {
-            return redirect()->route('note.index')->with('error', "Invalid action");
+            return redirect()->back()->with('error', "Invalid action");
         } else {
             $this->noteModel->note_update($data, $request->id);
-            return redirect()->route('note.index')->with('success', "Note updated successfully");
+            return redirect()->back()->with('success', "Note updated successfully");
         }
     }
 
@@ -146,7 +146,18 @@ class NoteController extends Controller
      * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Note $note)
+    public function destroy(Request $request)
+    {
+        $currentData = Note::findOrFail($request->id);
+
+        if ($currentData->user_id != Auth::user()->id) {
+            return redirect()->back()->with('error', "Invalid action");
+        } else {
+            $currentData->delete();
+            return redirect()->back()->with('success', "Note has been permanently deleted");
+        }
+    }
+
     public function archives()
     {
         return view('user.note.note_archives', [
@@ -209,7 +220,6 @@ class NoteController extends Controller
                 'user_id' => Auth::user()->id,
                 'is_trash' => 1
             ])->latest()->get(),
-            'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get()
         ]);
     }
 
