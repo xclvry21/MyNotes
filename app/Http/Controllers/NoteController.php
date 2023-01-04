@@ -153,12 +153,12 @@ class NoteController extends Controller
         $currentData = Note::findOrFail($request->id);
 
         if ($currentData->user_id != Auth::user()->id) {
-            return redirect()->route('note.index')->with('error', "Invalid action");
+            return redirect()->back()->with('error', "Invalid action");
         } else {
             Note::where('id', $request->id)->update([
                 'is_archive' => 1
             ]);
-            return redirect()->route('note.index')->with('success', "Note archived successfully");
+            return redirect()->back()->with('success', "Note archived successfully");
         }
     }
 
@@ -167,12 +167,12 @@ class NoteController extends Controller
         $currentData = Note::findOrFail($request->id);
 
         if ($currentData->user_id != Auth::user()->id) {
-            return redirect()->route('note.index')->with('error', "Invalid action");
+            return redirect()->back()->with('error', "Invalid action");
         } else {
             Note::where('id', $request->id)->update([
                 'is_trash' => 1
             ]);
-            return redirect()->route('note.index')->with('success', "Note deleted successfully");
+            return redirect()->back()->with('success', "Note deleted successfully");
         }
     }
 }

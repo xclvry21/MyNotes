@@ -29,7 +29,7 @@
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$note->title}}</td>
-                                        <td>{!! decrypt($note->body) !!}</td>
+                                        <td>{!! Str::limit(decrypt($note->body), 80) !!}</td>
                                         <td>          
                                             <a href="{{ route('note.edit', $note->id) }}" id="show" class="btn btn-primary sm waves-effect waves-light"><i class="far fa-edit" ></i></a>
 
