@@ -175,4 +175,30 @@ class NoteController extends Controller
             return redirect()->back()->with('success', "Note deleted successfully");
         }
     }
+
+    public function trash()
+    {
+        return view('user.note.note_trash', [
+            'title' => 'Note Trash',
+            'notes' => Note::where([
+                'user_id' => Auth::user()->id,
+                'is_trash' => 1
+            ])->latest()->get(),
+            'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get()
+        ]);
+    }
+
+    public function restore(Request $request)
+    {
+        $currentData = Note::findOrFail($request->id);
+
+        if ($currentData->user_id != Auth::user()->id) {
+            return redirect()->back()->with('error', "Invalid action");
+        } else {
+            Note::where('id', $request->id)->update([
+                'is_trash' => 0
+            ]);
+            return redirect()->back();
+        }
+    }
 }

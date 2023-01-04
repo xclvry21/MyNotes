@@ -54,7 +54,7 @@
                         <i class="ri-inbox-archive-line"></i>
                         <span>Archives</span>
                     </a>
-                    <a href="#">
+                    <a href="{{ route('note.trash') }}">
                         <i class="ri-delete-bin-line"></i>
                         <span>Trash</span>
                     </a>

@@ -25,4 +25,17 @@ $(function() {
         })
     });
 
+    // customized swals
+    $(document).on('click', '#swal-restore', function(e) {
+        e.preventDefault();
+        var link = $(this).attr("href");
+
+        window.location.href = link
+        Swal.fire(
+            'Success',
+            'Note restored successfully',
+            'success'
+        )
+    });
+
 });
