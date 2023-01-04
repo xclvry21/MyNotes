@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreTagRequest;
@@ -25,7 +26,7 @@ class TagController extends Controller
     public function index()
     {
         return view('user.tag.tag_all', [
-            'title' => 'Tag List',
+            'title' => 'Tag Settings',
             'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get()
         ]);
     }
@@ -38,7 +39,8 @@ class TagController extends Controller
     public function create()
     {
         return view('user.tag.tag_create', [
-            'title' => 'Create Tag'
+            'title' => 'Create Tag',
+            'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get()
         ]);
     }
 
@@ -67,6 +69,30 @@ class TagController extends Controller
      */
     public function show(Request $request)
     {
+        $current_tag = Tag::find($request->id);
+
+        if ($current_tag->user_id != Auth::user()->id) {
+            return redirect()->back()->with('error', "Invalid action");
+        } else {
+            $notes = Note::where([
+                'user_id' => Auth::user()->id,
+                'is_archive' => 0,
+                'is_trash' => 0
+            ])->latest()->get();
+
+            $filter_notes = array();
+            foreach ($notes as $note) {
+                $note_tags = explode(",", $note->tags);
+                if (in_array($request->id, $note_tags)) {
+                    array_push($filter_notes, $note);
+                }
+            }
+
+            return view('user.tag.tag_show', [
+                'title' => 'Tag Settings',
+                'notes' => $filter_notes,
+            ]);
+        }
     }
 
     /**
