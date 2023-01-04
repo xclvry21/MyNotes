@@ -75,39 +75,29 @@ class TagController extends Controller
             return redirect()->back()->with('error', "Invalid action");
         } else {
 
-            // filter all notes by tag_id
-            $notes = Note::where([
+            $all_notes = Note::where([
                 'user_id' => Auth::user()->id,
                 'is_archive' => 0,
                 'is_trash' => 0
             ])->latest()->get();
 
-            $filter_tag_notes = array();
-            foreach ($notes as $note) {
-                $note_tags = explode(",", $note->tags);
-                if (in_array($request->id, $note_tags)) {
-                    array_push($filter_tag_notes, $note);
-                }
-            }
-
-            $filter_archive_note = Note::where([
+            $archive_notes = Note::where([
                 'user_id' => Auth::user()->id,
                 'is_archive' => 1,
                 'is_trash' => 0
             ])->latest()->get();
 
-            $filter_trash_note = Note::where([
+            $trash_notes = Note::where([
                 'user_id' => Auth::user()->id,
                 'is_trash' => 1
             ])->latest()->get();
 
 
-
             return view('user.tag.tag_show', [
                 'title' => sprintf("Notes (%s)", $current_tag->title),
-                'note_tag' => $filter_tag_notes,
-                'note_archive' => $filter_archive_note,
-                'note_trash' => $filter_trash_note,
+                'note_tag' => $this->filter_by_tag($all_notes, $request->id),
+                'note_archive' => $this->filter_by_tag($archive_notes, $request->id),
+                'note_trash' => $this->filter_by_tag($trash_notes, $request->id),
             ]);
         }
     }
@@ -162,5 +152,26 @@ class TagController extends Controller
         $currentData->delete();
 
         return redirect()->route('tag.index');
+    }
+
+    /**
+     * It takes an array of objects and a tag id, and returns an array of objects that have that tag id
+     * 
+     * @param arr_obj an array of objects
+     * @param tag_id the id of the tag you want to filter by
+     * 
+     * @return An array of objects.
+     */
+    public function filter_by_tag($arr_obj, $tag_id)
+    {
+        $filtered_notes = array();
+        foreach ($arr_obj as $note) {
+            $note_tags = explode(",", $note->tags);
+            if (in_array($tag_id, $note_tags)) {
+                array_push($filtered_notes, $note);
+            }
+        }
+
+        return $filtered_notes;
     }
 }
