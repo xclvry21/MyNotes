@@ -200,6 +200,14 @@
              });
          </script>
 
+        <script>
+            $(document).ready(function() {
+                $('#datatable-notes').DataTable();
+                $('#datatable-archives').DataTable();
+                $('#datatable-trash').DataTable();
+            });
+        </script>
+
     </body>
 
 </html>

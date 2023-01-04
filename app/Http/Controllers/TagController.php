@@ -74,23 +74,40 @@ class TagController extends Controller
         if ($current_tag->user_id != Auth::user()->id) {
             return redirect()->back()->with('error', "Invalid action");
         } else {
+
+            // filter all notes by tag_id
             $notes = Note::where([
                 'user_id' => Auth::user()->id,
                 'is_archive' => 0,
                 'is_trash' => 0
             ])->latest()->get();
 
-            $filter_notes = array();
+            $filter_tag_notes = array();
             foreach ($notes as $note) {
                 $note_tags = explode(",", $note->tags);
                 if (in_array($request->id, $note_tags)) {
-                    array_push($filter_notes, $note);
+                    array_push($filter_tag_notes, $note);
                 }
             }
 
+            $filter_archive_note = Note::where([
+                'user_id' => Auth::user()->id,
+                'is_archive' => 1,
+                'is_trash' => 0
+            ])->latest()->get();
+
+            $filter_trash_note = Note::where([
+                'user_id' => Auth::user()->id,
+                'is_trash' => 1
+            ])->latest()->get();
+
+
+
             return view('user.tag.tag_show', [
-                'title' => 'Tag Settings',
-                'notes' => $filter_notes,
+                'title' => sprintf("Notes (%s)", $current_tag->title),
+                'note_tag' => $filter_tag_notes,
+                'note_archive' => $filter_archive_note,
+                'note_trash' => $filter_trash_note,
             ]);
         }
     }
