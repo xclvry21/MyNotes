@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
+use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +16,26 @@ class UserController extends Controller
      */
     public function index()
     {
+        $note_count = Note::where('user_id', Auth::user()->id)->latest()->get()->count();
+        $tag_count = Tag::where('user_id', Auth::user()->id)->latest()->get()->count();
+
+        $archive_count = Note::where([
+            'user_id' => Auth::user()->id,
+            'is_archive' => 1
+        ])->latest()->get()->count();
+
+        $trash_count = Note::where([
+            'user_id' => Auth::user()->id,
+            'is_trash' => 1
+        ])->latest()->get()->count();
+
+
         return view('user.index', [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'note_count' => $note_count,
+            'tag_count' => $tag_count,
+            'archive_count' => $archive_count,
+            'trash_count' => $trash_count
         ]);
     }
 

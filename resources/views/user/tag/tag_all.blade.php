@@ -31,6 +31,8 @@
                                         <td>          
                                             <a href="javascript:void(0)" id="tag-edit" data-url="{{ route('tag.edit', $tag->id) }}" class="btn btn-primary sm waves-effect waves-light"><i class="far fa-edit" ></i></a>
 
+                                            <a href="{{ route('tag.show', $tag->id) }}" class="btn btn-info sm" title="Show" id="show"> <i class="far fa-eye" ></i></a>
+
                                             <a href="{{ route('tag.destroy', $tag->id) }}" class="btn btn-danger sm" title="Delete" id="delete"> <i class="fas fa-trash" ></i></a>
                                         </td>
                                     </tr>
