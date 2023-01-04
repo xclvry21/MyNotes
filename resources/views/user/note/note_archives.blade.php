@@ -31,9 +31,9 @@
                                         <td>{{$note->title}}</td>
                                         <td>{!! Str::limit(decrypt($note->body), 80) !!}</td>
                                         <td>          
-                                            <a href="{{ route('note.edit', $note->id) }}" id="show" class="btn btn-primary sm waves-effect waves-light"><i class="far fa-edit" ></i></a>
+                                            <a href="{{ route('note.edit', $note->id) }}" title="Edit" id="show" class="btn btn-primary sm waves-effect waves-light"><i class="far fa-edit" ></i></a>
 
-                                            <a href="{{ route('note.archive', $note->id) }}" class="btn btn-secondary sm" title="Archive" id="archive"> <i class="ri-inbox-archive-line"></i></a>
+                                            <a href="{{ route('note.unarchive', $note->id) }}" class="btn btn-success sm" title="Unarchive" id="unarchive"> <i class="ri-inbox-unarchive-line"></i></a>
 
                                             <a href="{{ route('note.delete', $note->id) }}" class="btn btn-danger sm" title="Delete" id="delete"> <i class="fas fa-trash" ></i></a>
                                         </td>

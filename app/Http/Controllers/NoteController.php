@@ -147,6 +147,17 @@ class NoteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Note $note)
+    public function archives()
+    {
+        return view('user.note.note_archives', [
+            'title' => 'Note Archives',
+            'notes' => Note::where([
+                'user_id' => Auth::user()->id,
+                'is_archive' => 1,
+                'is_trash' => 0
+            ])->latest()->get(),
+        ]);
+    }
 
     public function archive(Request $request)
     {
@@ -159,6 +170,20 @@ class NoteController extends Controller
                 'is_archive' => 1
             ]);
             return redirect()->back()->with('success', "Note archived successfully");
+        }
+    }
+
+    public function unarchive(Request $request)
+    {
+        $currentData = Note::findOrFail($request->id);
+
+        if ($currentData->user_id != Auth::user()->id) {
+            return redirect()->back()->with('error', "Invalid action");
+        } else {
+            Note::where('id', $request->id)->update([
+                'is_archive' => 0
+            ]);
+            return redirect()->back()->with('success', "Note unarchived successfully");
         }
     }
 

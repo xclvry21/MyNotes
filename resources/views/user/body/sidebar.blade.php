@@ -50,15 +50,16 @@
 
                 <li class="menu-title">Miscellaneous</li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('note.archives') }}">
                         <i class="ri-inbox-archive-line"></i>
                         <span>Archives</span>
                     </a>
+                </li>
+                <li>
                     <a href="{{ route('note.trash') }}">
                         <i class="ri-delete-bin-line"></i>
                         <span>Trash</span>
-                    </a>
-                    
+                    </a> 
                 </li>
 
                
