@@ -38,10 +38,10 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('user.tag.tag_create', [
-            'title' => 'Create Tag',
-            'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get()
-        ]);
+        // return view('user.tag.tag_create', [
+        //     'title' => 'Create Tag',
+        //     'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get()
+        // ]);
     }
 
     /**
@@ -58,7 +58,7 @@ class TagController extends Controller
 
         $data['user_id'] = Auth::user()->id;
         $this->tagModel->tag_store($data);
-        return redirect()->route('tag.create')->with('success', "Tag added successfully");
+        return redirect()->back()->with('success', "Tag added successfully");
     }
 
     /**
@@ -115,7 +115,7 @@ class TagController extends Controller
         $tag = Tag::find($request->id);
 
         if ($tag->user_id != Auth::user()->id) {
-            return redirect()->route('tag.index')->with('error', "Invalid action");
+            return redirect()->back()->with('error', "Invalid action");
         } else {
             return response()->json($tag);
         }
@@ -136,9 +136,9 @@ class TagController extends Controller
 
         if ($data['title']) {
             $this->tagModel->tag_update($data, $request->tag_id);
-            return redirect()->route('tag.index')->with('success', "Tag updated successfully");
+            return redirect()->back()->with('success', "Tag updated successfully");
         } else {
-            return redirect()->route('tag.index')->with('error', "Tag title must not be empty");
+            return redirect()->back()->with('error', "Tag title must not be empty");
         }
     }
 
@@ -153,7 +153,7 @@ class TagController extends Controller
         $currentData = Tag::findOrFail($request->id);
         $currentData->delete();
 
-        return redirect()->route('tag.index');
+        return redirect()->back();
     }
 
     /**

@@ -34,7 +34,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('tag.index') }}">Tag Settings</a></li>
-                        <li><a href="{{ route('tag.create') }}">Create Tag</a></li>
+                        {{-- <li><a href="{{ route('tag.create') }}">Create Tag</a></li> --}}
                         <li><a href="javascript: void(0);" class="has-arrow">Tag List</a>
                             <ul class="sub-menu" aria-expanded="true">
                                 @php

@@ -4,6 +4,14 @@
 <div class="page-content">
     <div class="container-fluid">
 
+        <div class="row mb-3">
+            <div class="col-12">
+                <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center-create-tag">
+                    Create New Tag <i class="ri-file-add-line align-middle ms-2"></i> 
+                </button>
+            </div>           
+        </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -47,18 +55,18 @@
         </div>
         <!-- end row-->
 
-        {{-- DATA MODAL (TAG) --}}
+        {{-- DATA MODAL (EDIT-TAG) --}}
         <div class="col-sm-6 col-md-4 col-xl-3">
-            <form action="{{ route('tag.update') }}" method="post">
-                @csrf
-                @method('PUT')
-                <div class="modal fade bs-example-modal-center" tabindex="-1" id="tagShowModal" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Tag Information</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
+            <div class="modal fade bs-example-modal-center" tabindex="-1" id="modal-edit-tag" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Tag Information</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('tag.update') }}" method="post">
+                            @csrf
+                            @method('PUT')
                             <div class="modal-body">
                                 <input type="hidden" id="tag_id" name="tag_id">
                                 <input class="form-control" type="text" id="tag_title" value="" name="tag_title">
@@ -68,10 +76,37 @@
                                 <input type="submit" class="btn btn-primary waves-effect waves-light" value="Save Changes" id="tag-update">
                                 <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
                             </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
-            </form>
+                        </form>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div>
+
+        {{-- DATA MODAL (CREATE-TAG) --}}
+        <div class="col-sm-6 col-md-4 col-xl-3">
+            <div class="modal fade bs-example-modal-center-create-tag" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Create new tag</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('tag.store') }}" method="post">
+                            @csrf
+                            <div class="modal-body">
+                                <input class="form-control" type="text" id="example-text-input" value="{{ old('title') }}" name="title">
+                                @error('title')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-primary waves-effect waves-light" value="Save Changes" id="tag-update">
+                                <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
         </div>
 
     </div>

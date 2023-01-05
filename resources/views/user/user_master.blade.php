@@ -181,6 +181,11 @@
             $(document).ready(function() {
                 $('.js-example-basic-multiple').select2();
             });
+            $(document).ready(function () {
+                $('#select2-modal').select2({
+                    dropdownParent: $('#my-modal'),
+                });
+            });
         </script>
 
         {{-- tag modal --}}
@@ -189,13 +194,13 @@
                 $('body').on('click', '#tag-edit', function () {
                    var userURL = $(this).data('url');
                    var base_url = window.location.origin;
-                   $('#tagShowModal').modal('show');
+                   $('#modal-edit-tag').modal('show');
                    $.get(userURL, function (data) {
-                       $('#tagShowModal').modal('show');   
+                       $('#modal-edit-tag').modal('show');   
                        $('#tag_id').val(data.id);                    
                        $('#tag_title').val(data.title);   
                    })
-                });
+                });                  
                    
              });
          </script>
