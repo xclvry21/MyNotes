@@ -44,10 +44,10 @@ class NoteController extends Controller
      */
     public function create()
     {
-        return view('user.note.note_create', [
-            'title' => 'Create Note',
-            'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get()
-        ]);
+        // return view('user.note.note_create', [
+        //     'title' => 'Create Note',
+        //     'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get()
+        // ]);
     }
 
     /**

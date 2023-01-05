@@ -29,7 +29,10 @@
                                 <label class="col-sm-2 col-form-label">Tags</label>
                                 <div class="col-sm-10">
                                     <select class="form-select js-example-basic-multiple" aria-label="Default select example" name="tag_ids[]" multiple="multiple">
-                                        @foreach ($tags as $tag)
+                                        @php
+                                            $auth_tags = App\Models\Tag::where('user_id', Auth::user()->id)->latest()->get();
+                                        @endphp
+                                        @foreach ($auth_tags as $tag)
                                             <option value="{{ $tag->id }}">{{ $tag->title }}</option>
                                         @endforeach
                                     </select>   
@@ -38,7 +41,7 @@
                             <!-- end row -->
                             
                             <div class="row mb-3">
-                                <textarea id="elm1" name="body"></textarea>
+                                <textarea id="elm1" name="body">{{ old('body') }}</textarea>
                             </div>
                             <!-- end row -->
                             
