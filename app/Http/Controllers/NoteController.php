@@ -62,19 +62,23 @@ class NoteController extends Controller
             'title' => 'required'
         ]);
 
-        //tags
-        if (isset($request->tag_ids)) {
-            $data['tags'] = implode(",", $request->tag_ids);
+        if (!empty($data['title'])) {
+            //tags
+            if (isset($request->tag_ids)) {
+                $data['tags'] = implode(",", $request->tag_ids);
+            } else {
+                $data['tags'] = null;
+            }
+
+            $data['body'] = encrypt($request->body);
+            $data['user_id'] = Auth::user()->id;
+
+            $this->noteModel->note_store($data);
+
+            return redirect()->back()->with('success', "Note added successfully");
         } else {
-            $data['tags'] = null;
+            return redirect()->back()->with('error', "Title field must not be empty")->withInput();
         }
-
-        $data['body'] = encrypt($request->body);
-        $data['user_id'] = Auth::user()->id;
-
-        $this->noteModel->note_store($data);
-
-        return redirect()->route('note.create')->with('success', "Note added successfully");
     }
 
     /**

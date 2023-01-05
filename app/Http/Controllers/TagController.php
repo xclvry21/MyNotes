@@ -98,6 +98,8 @@ class TagController extends Controller
                 'note_tag' => $this->filter_by_tag($all_notes, $request->id),
                 'note_archive' => $this->filter_by_tag($archive_notes, $request->id),
                 'note_trash' => $this->filter_by_tag($trash_notes, $request->id),
+                'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get(),
+                'tag_id' => $request->id,
             ]);
         }
     }
