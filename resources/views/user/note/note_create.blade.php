@@ -41,7 +41,7 @@
                             <!-- end row -->
                             
                             <div class="row mb-3">
-                                <textarea id="elm1" name="body">{{ old('body') }}</textarea>
+                                <textarea id="summernote" name="body">{{ old('body') }}</textarea>
                             </div>
                             <!-- end row -->
                             

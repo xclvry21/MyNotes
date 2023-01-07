@@ -39,6 +39,9 @@
         {{-- Select2 (multi select dropdown) --}}
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+        {{-- summernote --}}
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+        
     </head>
 
     <body data-topbar="dark">
@@ -91,10 +94,10 @@
         <script src="{{ asset('dashboard_body') }}/assets/libs/simplebar/simplebar.min.js"></script>
         <script src="{{ asset('dashboard_body') }}/assets/libs/node-waves/waves.min.js"></script>
 
+        <!-- Chart JS -->
+        <script src="{{ asset('dashboard_body') }}/assets/libs/chart.js/Chart.bundle.min.js"></script>
+        <script src="{{ asset('dashboard_body') }}/assets/js/pages/chartjs.init.js"></script> 
         
-        <!-- apexcharts -->
-        <script src="{{ asset('dashboard_body') }}/assets/libs/apexcharts/apexcharts.min.js"></script>
-
         <!-- jquery.vectormap map -->
         <script src="{{ asset('dashboard_body') }}/assets/libs/user-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
         <script src="{{ asset('dashboard_body') }}/assets/libs/user-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
@@ -109,9 +112,7 @@
 
         <script src="{{ asset('dashboard_body') }}/assets/js/pages/dashboard.init.js"></script>
 
-        <!-- App js -->
-        <script src="{{ asset('dashboard_body') }}/assets/js/app.js"></script>
-
+    
         {{-- Toastr --}}
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script>
@@ -137,8 +138,25 @@
         @endif 
         </script>
 
-        <!--tinymce js-->
-        <script src="{{ asset('dashboard_body') }}/assets/libs/tinymce/tinymce.min.js"></script>
+        {{-- summernote --}}
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#summernote').summernote({
+                    placeholder: 'Hello, welcome to MyNotes',
+                    tabsize: 2,
+                    height: 300,
+                    toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear', 'fontname', 'fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert', ['hr']],
+                    ['table', ['table']],
+                    ],
+                });
+            });
+        </script>
 
         <!-- init js -->
         <script src="{{ asset('dashboard_body') }}/assets/js/pages/form-editor.init.js"></script>
@@ -188,7 +206,7 @@
             });
         </script>
 
-        {{-- tag modal --}}
+        {{-- edit-tag modal --}}
         <script type='text/javascript'>
             $(document).ready(function () {
                 $('body').on('click', '#tag-edit', function () {
@@ -201,9 +219,8 @@
                        $('#tag_title').val(data.title);   
                    })
                 });                  
-                   
              });
-         </script>
+        </script>
 
         <script>
             $(document).ready(function() {
@@ -213,26 +230,9 @@
             });
         </script>
 
-        {{-- summernote --}}
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                $('#summernote').summernote({
-                    placeholder: 'Hello stand alone ui',
-                    tabsize: 2,
-                    height: 120,
-                    toolbar: [
-                        ['style', ['style']],
-                        ['font', ['bold', 'underline', 'clear']],
-                        ['color', ['color']],
-                        ['para', ['ul', 'ol', 'paragraph']],
-                        ['table', ['table']],
-                        ['insert', ['picture']],
-                        ['view', ['fullscreen', 'codeview', 'help']]
-                    ]
-                });
-            });
-        </script>
+    
+         <!-- App js -->
+         <script src="{{ asset('dashboard_body') }}/assets/js/app.js"></script>
 
     </body>
 

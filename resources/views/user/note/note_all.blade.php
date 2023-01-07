@@ -24,7 +24,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Title</th>
-                                    <th>Body</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -37,7 +36,6 @@
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$note->title}}</td>
-                                        <td>{!! Str::limit(decrypt($note->body), 80) !!}</td>
                                         <td>          
                                             <a href="{{ route('note.edit', $note->id) }}" id="show" class="btn btn-primary sm waves-effect waves-light"><i class="far fa-edit" ></i></a>
 
@@ -97,7 +95,7 @@
                                 <!-- end row -->
 
                                 <div class="row mb-3">
-                                    <textarea id="elm1" name="body">{{ old('body') }}</textarea>
+                                    <textarea id="summernote" name="body">{{ old('body') }}</textarea>
                                 </div>
                                 <!-- end row -->
                             </div>
