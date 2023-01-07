@@ -47,14 +47,14 @@
             <div class="dropdown d-inline-block user-dropdown">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="{{ Auth::user()->profile_image ?  asset('storage/admin_images\/') . Auth::user()->profile_image : asset('images/no-image.jpg') }}"
+                    <img class="rounded-circle header-profile-user" src="{{ Auth::user()->profile_image ?  asset('storage/user_images\/') . Auth::user()->profile_image : asset('images/no-image.jpg') }}"
                         alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-1">{{ Auth::user()->name }}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="#"><i class="ri-user-line align-middle me-1"></i> Profile</a>
+                    <a class="dropdown-item" href="{{ route ('user.edit_profile')}}"><i class="ri-user-line align-middle me-1"></i> Profile</a>
                     <a class="dropdown-item" href="#"><i class="ri-lock-password-line align-middle me-1"></i> Change Password</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="{{ route('user.logout') }}"><i class="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>

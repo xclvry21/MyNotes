@@ -4,11 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Note;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    private $userModel;
+
+    public function __construct()
+    {
+        $this->userModel = new User();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -131,5 +139,41 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('login')->with('success', "You've logout successfully");
+    }
+
+    public function edit_profile(Request $request)
+    {
+        return view('user.setting.setting_edit_profile', [
+            'title' => 'Profile Edit',
+            'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get(),
+            'auth_user' => Auth::user()
+        ]);
+    }
+
+    public function update_profile(Request $request)
+    {
+        $user = Auth::user();
+
+        $image = $request->file('profile_image');
+        $data = $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required',
+            ],
+        );
+
+        if ($image) {
+            //filename to store -> for uniqueness
+            $filenameToStore = ($user->id) . '_' . date('YmdHi') . '.' . $image->getClientOriginalExtension();
+
+            $request->file('profile_image')->storeAs('public/user_images', $filenameToStore);
+            $data['profile_image_name'] = $filenameToStore;
+        } else {
+            $data['profile_image_name'] = null;
+        }
+
+        $this->userModel->user_update($data, $user->id);
+
+        return redirect()->back()->with('success', "Your profile updated successfully");
     }
 }
