@@ -36,7 +36,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Title</th>
-                                    <th>Body</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -50,7 +49,6 @@
                                         @if ($note)
                                             <td>{{$i++}}</td>
                                             <td>{{$note->title}}</td>
-                                            <td>{!! Str::limit(decrypt($note->body), 80) !!}</td>
                                             <td>          
                                                 <a href="{{ route('note.edit', $note->id) }}" id="show" class="btn btn-primary sm waves-effect waves-light"><i class="far fa-edit" ></i></a>
 
@@ -85,7 +83,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Title</th>
-                                    <th>Body</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -98,7 +95,6 @@
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$note->title}}</td>
-                                        <td>{!! Str::limit(decrypt($note->body), 80) !!}</td>
                                         <td>          
                                             <a href="{{ route('note.edit', $note->id) }}" title="Edit" id="show" class="btn btn-primary sm waves-effect waves-light"><i class="far fa-edit" ></i></a>
 
@@ -132,7 +128,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Title</th>
-                                    <th>Body</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -145,8 +140,10 @@
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$note->title}}</td>
-                                        <td>{!! Str::limit(decrypt($note->body), 80) !!}</td>
                                         <td>          
+
+                                            <a href="{{ route('note.show', $note->id) }}" class="btn btn-primary sm" title="Show"> <i class="fas fa-eye" ></i></a>
+                                            
                                             <a href="{{ route('note.restore', $note->id) }}" class="btn btn-success sm" title="Restore" id="swal-restore"> <i class="fas fa-trash-restore" ></i></a>
 
                                             <a href="{{ route('note.destroy', $note->id) }}" class="btn btn-danger sm" title="Delete Forever" id="delete"> <i class="mdi mdi-delete-forever "></i></a>

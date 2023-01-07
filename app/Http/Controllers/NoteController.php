@@ -89,6 +89,18 @@ class NoteController extends Controller
      */
     public function show(Request $request)
     {
+        $note = Note::findOrFail($request->id);
+
+        if ($note->user_id != Auth::user()->id) {
+            return redirect()->route('tag.index')->with('error', "Invalid action");
+        } else {
+            return view('user.note.note_show', [
+                'title' => 'Show Note',
+                'tags' => Tag::where('user_id', Auth::user()->id)->latest()->get(),
+                'note' => $note,
+                'note_tags' => explode(",", $note->tags)
+            ]);
+        }
     }
 
     /**
