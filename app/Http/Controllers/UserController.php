@@ -7,6 +7,7 @@ use App\Models\Note;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -175,5 +176,35 @@ class UserController extends Controller
         $this->userModel->user_update($data, $user->id);
 
         return redirect()->back()->with('success', "Your profile updated successfully");
+    }
+
+    public function edit_password()
+    {
+        return view('user.setting.setting_edit_password', [
+            'title' => 'Password Edit',
+        ]);
+    }
+
+    public function update_password(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required',
+            'password_confirmation' => 'required|same:new_password',
+        ]);
+
+        $hashedPassword = Auth::user()->password;
+
+        if (Hash::check($request->current_password, $hashedPassword)) {
+
+            User::find(Auth::user()->id)->update([
+                'password' => bcrypt($request->new_password),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+            return redirect()->back()->with('success', "Your profile updated successfully");
+        } else {
+            return redirect()->back()->with('error', "Current password is incorrect");
+        }
     }
 }
