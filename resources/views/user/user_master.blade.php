@@ -213,6 +213,27 @@
             });
         </script>
 
+        {{-- summernote --}}
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#summernote').summernote({
+                    placeholder: 'Hello stand alone ui',
+                    tabsize: 2,
+                    height: 120,
+                    toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['picture']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                });
+            });
+        </script>
+
     </body>
 
 </html>
