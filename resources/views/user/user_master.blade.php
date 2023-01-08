@@ -94,10 +94,6 @@
         <script src="{{ asset('dashboard_body') }}/assets/libs/simplebar/simplebar.min.js"></script>
         <script src="{{ asset('dashboard_body') }}/assets/libs/node-waves/waves.min.js"></script>
 
-        <!-- Chart JS -->
-        <script src="{{ asset('dashboard_body') }}/assets/libs/chart.js/Chart.bundle.min.js"></script>
-        <script src="{{ asset('dashboard_body') }}/assets/js/pages/chartjs.init.js"></script> 
-        
         <!-- jquery.vectormap map -->
         <script src="{{ asset('dashboard_body') }}/assets/libs/user-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
         <script src="{{ asset('dashboard_body') }}/assets/libs/user-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
@@ -230,9 +226,8 @@
             });
         </script>
 
-    
-         <!-- App js -->
-         <script src="{{ asset('dashboard_body') }}/assets/js/app.js"></script>
+        <!-- App js -->
+        <script src="{{ asset('dashboard_body') }}/assets/js/app.js"></script>
 
     </body>
 
