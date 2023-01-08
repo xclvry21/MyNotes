@@ -72,7 +72,7 @@
                             </span>
                         </div>
                     </div>
-                    <a href="{{ route('note.archives') }}" class="btn btn-info btn-sm waves-effect waves-light">More info<i class="ri-inbox-archive-line align-middle ms-2"></i></a>                                           
+                    <a href="{{ route('note.archives') }}" class="btn btn-info btn-sm waves-effect waves-light">More info<i class="ri-arrow-right-line align-middle ms-2"></i></a>                                           
                 </div><!-- end cardbody -->
             </div><!-- end col -->
 

@@ -25,7 +25,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $note_count = Note::where('user_id', Auth::user()->id)->latest()->get()->count();
+        $note_count = Note::where([
+            'user_id' => Auth::user()->id,
+            'is_archive' => 0,
+            'is_trash' => 0
+        ])->latest()->get()->count();
+        
         $tag_count = Tag::where('user_id', Auth::user()->id)->latest()->get()->count();
 
         $archive_count = Note::where([

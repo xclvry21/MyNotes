@@ -64,6 +64,7 @@
                             </center>
                             <p><strong>Name:</strong> <span id="admin-name"></span></p>
                             <p><strong>Email:</strong> <span id="admin-email"></span></p>
+                            <p><strong>Created at:</strong> <span id="user-create_at"></span></p>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->

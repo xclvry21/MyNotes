@@ -92,7 +92,7 @@ class NoteController extends Controller
         $note = Note::findOrFail($request->id);
 
         if ($note->user_id != Auth::user()->id) {
-            return redirect()->route('tag.index')->with('error', "Invalid action");
+            return redirect()->back()->with('error', "Invalid action");
         } else {
             return view('user.note.note_show', [
                 'title' => 'Show Note',
@@ -114,7 +114,7 @@ class NoteController extends Controller
         $note = Note::find($request->id);
 
         if ($note->user_id != Auth::user()->id) {
-            return redirect()->route('tag.index')->with('error', "Invalid action");
+            return redirect()->back()->with('error', "Invalid action");
         } else {
             return view('user.note.note_edit', [
                 'title' => 'Edit Note',

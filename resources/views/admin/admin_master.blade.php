@@ -170,27 +170,36 @@
 
         <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js" ></script>
         
+        {{-- moment --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+        
         {{-- admin modal --}}
         <script type='text/javascript'>
             $(document).ready(function () {
-                 $('body').on('click', '#show-admin', function () {
+                $('body').on('click', '#show-admin', function () {
                    var userURL = $(this).data('url');
                    var base_url = window.location.origin;
-                   $('#adminShowModal').modal('show');
-                   $.get(userURL, function (data) {
+                $('#adminShowModal').modal('show');
+                    $.get(userURL, function (data) {
                        $('#adminShowModal').modal('show');
                        
-                       if(data.profile_image){
-                            $('#imgsrc').attr('src', base_url+"/storage/admin_images/"+data.profile_image);
-                       }else{
-                            $('#imgsrc').attr('src', base_url+"/images/no-image.jpg");
-                       }
+                        if(data.profile_image){
+                                $('#imgsrc').attr('src', base_url+"/storage/admin_images/"+data.profile_image);
+                        }else{
+                                $('#imgsrc').attr('src', base_url+"/images/no-image.jpg");
+                        }
 
-                       $('#admin-name').text(data.name);
-                       $('#admin-email').text(data.email);
+                        $('#admin-name').text(data.name);
+                        $('#admin-email').text(data.email);
+                        let str = data.created_at;
+                        let date = moment(str);
+                        $('#user-create_at').text(date.format('llll'));
                        
-                   })
-                });
+                    })
+                });    
+             });
+        </script>
+
         {{-- user modal --}}
         <script type='text/javascript'>
             $(document).ready(function () {

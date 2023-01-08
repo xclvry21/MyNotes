@@ -182,7 +182,31 @@ class AdminController extends Controller
     {
         return view('admin.admin.admin_all', [
             'title' => 'Admin List',
-            'admins' => Admin::all()
+            'admins' => Admin::latest()->get(),
         ]);
+    }
+
+    public function user_list()
+    {
+        return view('admin.user.user_all', [
+            'title' => 'User List',
+            'users' => User::latest()->get()
+        ]);
+    }
+
+    public function show_user(Request $request)
+    {
+        $id = $request->id;
+        $user = User::find($id);
+        $user['note_count'] = Note::where([
+            'user_id' => $id,
+            'is_archive' => 0,
+            'is_trash' => 0
+        ])->latest()->get()->count();
+        $user['tag_count'] = Tag::where([
+            'user_id' => $id,
+        ])->latest()->get()->count();
+        
+        return response()->json($user);
     }
 }
