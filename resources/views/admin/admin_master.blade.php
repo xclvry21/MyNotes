@@ -191,9 +191,35 @@
                        
                    })
                 });
-                 
+        {{-- user modal --}}
+        <script type='text/javascript'>
+            $(document).ready(function () {
+                $('body').on('click', '#show-user', function () {
+                   var userURL = $(this).data('url');
+                   var base_url = window.location.origin;
+                   $('#userShowModal').modal('show');
+                    $.get(userURL, function (data) {
+                        $('#userShowModal').modal('show');
+                       
+                        if(data.profile_image){
+                             $('#imgsrc').attr('src', base_url+"/storage/user_images/"+data.profile_image);
+                        }else{
+                             $('#imgsrc').attr('src', base_url+"/images/no-image.jpg");
+                        }
+
+                        $('#user-name').text(data.name);
+                        $('#user-email').text(data.email);
+                        $('#user-notes').text(data.note_count);
+                        $('#user-tags').text(data.tag_count);
+                    
+                        let str = data.created_at;
+                        let date = moment(str);
+                        $('#user-create_at').text(date.format('llll'));
+
+                    })
+                });    
              });
-         </script>
+        </script>
     </body>
 
 </html>

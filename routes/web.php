@@ -41,6 +41,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/register', 'create')->name('admin.register_form');
             Route::get('/dashboard', 'index')->name('admin.dashboard');
             Route::get('/logout', 'logout')->name('admin.logout');
+            Route::get('/user_list', 'user_list')->name('user.list');
+            Route::get('/user/show/{id}', 'show_user')->name('user.show');
             Route::get('/admin_list', 'admin_list')->name('admin.list');
             Route::get('/admin/show/{id}', 'show')->name('admin.show');
             Route::get('/admin/{id}', 'destroy')->name('admin.destroy');
