@@ -2,21 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
+use App\Models\Note;
+use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
-use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
     private $adminModel;
+    private $userModel;
 
     public function __construct()
     {
         $this->adminModel = new Admin();
+        $this->userModel = new User();
     }
 
     /**
@@ -26,8 +31,17 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $note_count = Note::get()->count();
+        $tag_count = Tag::get()->count();
+        $user_count = User::get()->count();
+        $admin_count = Admin::get()->count();
+
         return view('admin.index', [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'note_count' => $note_count,
+            'tag_count' => $tag_count,
+            'user_count' => $user_count,
+            'admin_count' => $admin_count
         ]);
     }
 
