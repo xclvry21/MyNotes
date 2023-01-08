@@ -47,6 +47,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/admin/show/{id}', 'show')->name('admin.show');
             Route::get('/admin/{id}', 'destroy')->name('admin.destroy');
 
+            Route::get('/profile/edit', 'edit_profile')->name('admin.edit_profile');
+            Route::put('/profile/update', 'update_profile')->name('admin.update_profile');
             Route::post('/register', 'store')->name('admin.register');
         });
         Route::get('/login', 'login_form')->name('admin_login_form');

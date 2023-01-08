@@ -57,4 +57,16 @@ class Admin extends Authenticatable
                 'created_at' => date('Y-m-d H:i:s')
             ]);
     }
+
+    public function admin_update($data, $id)
+    {
+        return DB::table('admins')
+            ->where('id', '=', $id)
+            ->update([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'profile_image' => $data['profile_image_name'],
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+    }
 }

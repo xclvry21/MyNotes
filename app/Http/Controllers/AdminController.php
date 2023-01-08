@@ -206,7 +206,44 @@ class AdminController extends Controller
         $user['tag_count'] = Tag::where([
             'user_id' => $id,
         ])->latest()->get()->count();
-        
+
         return response()->json($user);
     }
+
+    // setups settings
+    public function edit_profile()
+    {
+        return view('admin.setting.setting_edit_profile', [
+            'title' => 'Profile Edit',
+            'auth_user' => Auth::guard('admin')->user()
+        ]);
+    }
+
+    public function update_profile(Request $request)
+    {
+        $admin = Auth::guard('admin')->user();
+
+        $image = $request->file('profile_image');
+        $data = $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required',
+            ],
+        );
+
+        if ($image) {
+            //filename to store -> for uniqueness
+            $filenameToStore = ($admin->id) . '_' . date('YmdHi') . '.' . $image->getClientOriginalExtension();
+
+            $request->file('profile_image')->storeAs('public/admin_images', $filenameToStore);
+            $data['profile_image_name'] = $filenameToStore;
+        } else {
+            $data['profile_image_name'] = null;
+        }
+
+        $this->adminModel->admin_update($data, $admin->id);
+
+        return redirect()->back()->with('success', "Your profile updated successfully");
+    }
+
 }
