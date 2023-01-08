@@ -37,7 +37,7 @@
                             <!-- end row -->
                             
                             <div class="row mb-3">
-                                <textarea id="elm1" name="body" readonly>{!! decrypt($note->body) !!}</textarea>
+                                <textarea id="summernote" name="body">{!! decrypt($note->body) !!}</textarea>
                             </div>
                             <!-- end row -->
                               

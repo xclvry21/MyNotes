@@ -16,7 +16,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Title</th>
-                                    <th>Body</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -29,7 +28,6 @@
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$note->title}}</td>
-                                        <td>{!! Str::limit(decrypt($note->body), 80) !!}</td>
                                         <td>    
                                             <a href="{{ route('note.show', $note->id) }}" class="btn btn-primary sm" title="Show"> <i class="fas fa-eye" ></i></a>
 

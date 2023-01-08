@@ -74,7 +74,7 @@ Route::controller(UserController::class)->group(function () {
 Route::controller(NoteController::class)->group(function () {
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/note', 'index')->name('note.index');
-        Route::get('/note/create', 'create')->name('note.create');
+        // Route::get('/note/create', 'create')->name('note.create');
         Route::get('/note/trash', 'trash')->name('note.trash');
         Route::get('/note/archives', 'archives')->name('note.archives');
         Route::get('/note/{id}', 'destroy')->name('note.destroy');
