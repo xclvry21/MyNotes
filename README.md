@@ -11,7 +11,7 @@ MyNotes is a simple web-app for note-taking using [Laravel](https://laravel.com)
 
 
 ### Add-ons
-
+- **[Laravel Breeze](https://laravel.com/docs/9.x/starter-kits#laravel-breeze)**
 - **[Moment.js](https://momentjs.com)**
 - **[Summernote](https://summernote.org)**
 - **[toastr](https://github.com/CodeSeven/toastr)**
