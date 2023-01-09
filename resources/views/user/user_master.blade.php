@@ -4,11 +4,11 @@
     <head>
         
         <meta charset="utf-8" />
-        <title>{{ $title }} | Upcube - Admin & Dashboard Template</title>
+        <title>{{ $title }} | Upcube - user & Dashboard Template</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="Premium Multipurpose user & Dashboard Template" name="description" />
         <meta content="Themesdesign" name="author" />
-        
+
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{ asset('dashboard_body') }}/assets/images/mynotes_favicon.ico">
 
@@ -34,7 +34,7 @@
 
         {{-- summernote --}}
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-
+        
     </head>
 
     <body data-topbar="dark">
@@ -46,11 +46,11 @@
 
             
             <!-- ========== Header Start ========== -->
-                @include('admin.body.header')
+                @include('user.body.header')
             <!-- ========== Header End ========== -->
 
             <!-- ========== Left Sidebar Start ========== -->
-                @include('admin.body.sidebar')
+                @include('user.body.sidebar')
             <!-- Left Sidebar End -->
 
             
@@ -60,11 +60,11 @@
             <!-- ============================================================== -->
             <div class="main-content">
 
-                @yield('admin')
+                @yield('user')
                 <!-- End Page-content -->
                
                 <!-- ========== Footer Start ========== -->
-                @include('admin.body.footer')
+                @include('user.body.footer')
                 <!-- ========== Footer End ========== -->
                 
             </div>
@@ -86,7 +86,7 @@
         <script src="{{ asset('dashboard_body') }}/assets/libs/metismenu/metisMenu.min.js"></script>
         <script src="{{ asset('dashboard_body') }}/assets/libs/simplebar/simplebar.min.js"></script>
         <script src="{{ asset('dashboard_body') }}/assets/libs/node-waves/waves.min.js"></script>
- 
+
         <!-- Datatable init js -->
         <script src="{{ asset('dashboard_body') }}/assets/js/pages/datatables.init.js"></script>
         <!-- Required datatable js -->
@@ -95,26 +95,23 @@
         <!-- Responsive examples -->
         <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
         <script src="{{ asset('dashboard_body') }}/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-         
+        
         <script src="{{ asset('dashboard_body') }}/assets/js/pages/dashboard.init.js"></script>
- 
+
         <!-- init js -->
         <script src="{{ asset('dashboard_body') }}/assets/js/pages/form-editor.init.js"></script>
- 
+
         {{-- sweetalert --}}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
- 
+
         <script src="{{ asset('dashboard_body') }}/assets/js/code.js"></script>
- 
+
         <!-- materialdesign icon js-->
         <script src="{{ asset('dashboard_body') }}/assets/js/pages/materialdesign.init.js"></script>
- 
+
         <!-- App js -->
         <script src="{{ asset('dashboard_body') }}/assets/js/app.js"></script>
-        
-        {{-- moment --}}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
-        
+    
         {{-- Toastr --}}
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script>
@@ -140,62 +137,63 @@
         @endif 
         </script>
 
-        {{-- admin modal --}}
+        {{-- summernote --}}
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#summernote').summernote({
+                    placeholder: 'Hello, welcome to MyNotes',
+                    tabsize: 2,
+                    height: 300,
+                    toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear', 'fontname', 'fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert', ['hr']],
+                    ['table', ['table']],
+                    ],
+                });
+            });
+        </script>
+
+        {{-- select2 --}}
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.js-example-basic-multiple').select2();
+            });
+            $(document).ready(function () {
+                $('#select2-modal').select2({
+                    dropdownParent: $('#my-modal'),
+                });
+            });
+        </script>
+
+        {{-- edit-tag modal --}}
         <script type='text/javascript'>
             $(document).ready(function () {
-                $('body').on('click', '#show-admin', function () {
+                $('body').on('click', '#tag-edit', function () {
                    var userURL = $(this).data('url');
                    var base_url = window.location.origin;
-                $('#adminShowModal').modal('show');
-                    $.get(userURL, function (data) {
-                       $('#adminShowModal').modal('show');
-                       
-                        if(data.profile_image){
-                                $('#imgsrc').attr('src', base_url+"/storage/admin_images/"+data.profile_image);
-                        }else{
-                                $('#imgsrc').attr('src', base_url+"/images/no-image.jpg");
-                        }
-
-                        $('#admin-name').text(data.name);
-                        $('#admin-email').text(data.email);
-                        let str = data.created_at;
-                        let date = moment(str);
-                        $('#user-create_at').text(date.format('llll'));
-                       
-                    })
-                });    
+                   $('#modal-edit-tag').modal('show');
+                   $.get(userURL, function (data) {
+                       $('#modal-edit-tag').modal('show');   
+                       $('#tag_id').val(data.id);                    
+                       $('#tag_title').val(data.title);   
+                   })
+                });                  
              });
         </script>
 
-        {{-- user modal --}}
-        <script type='text/javascript'>
-            $(document).ready(function () {
-                $('body').on('click', '#show-user', function () {
-                   var userURL = $(this).data('url');
-                   var base_url = window.location.origin;
-                   $('#userShowModal').modal('show');
-                    $.get(userURL, function (data) {
-                        $('#userShowModal').modal('show');
-                       
-                        if(data.profile_image){
-                             $('#imgsrc').attr('src', base_url+"/storage/user_images/"+data.profile_image);
-                        }else{
-                             $('#imgsrc').attr('src', base_url+"/images/no-image.jpg");
-                        }
-
-                        $('#user-name').text(data.name);
-                        $('#user-email').text(data.email);
-                        $('#user-notes').text(data.note_count);
-                        $('#user-tags').text(data.tag_count);
-                    
-                        let str = data.created_at;
-                        let date = moment(str);
-                        $('#user-create_at').text(date.format('llll'));
-
-                    })
-                });    
-             });
+        <script>
+            $(document).ready(function() {
+                $('#datatable-notes').DataTable();
+                $('#datatable-archives').DataTable();
+                $('#datatable-trash').DataTable();
+            });
         </script>
+
     </body>
 
 </html>

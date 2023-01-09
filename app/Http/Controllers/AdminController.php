@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
+use App\Models\Note;
+use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 
 class AdminController extends Controller
 {
     private $adminModel;
+    private $userModel;
 
     public function __construct()
     {
         $this->adminModel = new Admin();
+        $this->userModel = new User();
     }
 
     /**
@@ -25,8 +32,17 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $note_count = Note::get()->count();
+        $tag_count = Tag::get()->count();
+        $user_count = User::get()->count();
+        $admin_count = Admin::get()->count();
+
         return view('admin.index', [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'note_count' => $note_count,
+            'tag_count' => $tag_count,
+            'user_count' => $user_count,
+            'admin_count' => $admin_count
         ]);
     }
 
@@ -85,9 +101,10 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function show(Admin $admin)
+    public function show(Request $request)
     {
-        //
+        $admin = Admin::find($request->id);
+        return response()->json($admin);
     }
 
     /**
@@ -119,9 +136,20 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(Request $request)
     {
-        //
+        $currentData = Admin::findOrFail($request->id);
+
+        //create first the folder
+        $destination = '/storage/admin_images/';
+        $path = public_path() . $destination;
+
+        //delete the file
+        File::delete($path . $currentData->profile_image);
+
+        $currentData->delete();
+
+        return redirect()->route('admin.list');
     }
 
     public function login_form()
@@ -149,5 +177,105 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('admin_login_form')->with('success', "You've logout successfully");
+    }
+
+    public function admin_list()
+    {
+        return view('admin.admin.admin_all', [
+            'title' => 'Admin List',
+            'admins' => Admin::latest()->get(),
+        ]);
+    }
+
+    public function user_list()
+    {
+        return view('admin.user.user_all', [
+            'title' => 'User List',
+            'users' => User::latest()->get()
+        ]);
+    }
+
+    public function show_user(Request $request)
+    {
+        $id = $request->id;
+        $user = User::find($id);
+        $user['note_count'] = Note::where([
+            'user_id' => $id,
+            'is_archive' => 0,
+            'is_trash' => 0
+        ])->latest()->get()->count();
+        $user['tag_count'] = Tag::where([
+            'user_id' => $id,
+        ])->latest()->get()->count();
+
+        return response()->json($user);
+    }
+
+    // setups settings
+    public function edit_profile()
+    {
+        return view('admin.setting.setting_edit_profile', [
+            'title' => 'Profile Edit',
+            'auth_user' => Auth::guard('admin')->user()
+        ]);
+    }
+
+    public function update_profile(Request $request)
+    {
+        $admin = Auth::guard('admin')->user();
+
+        $image = $request->file('profile_image');
+        $data = $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required',
+            ],
+        );
+
+        if ($image) {
+            //filename to store -> for uniqueness
+            $filenameToStore = ($admin->id) . '_' . date('YmdHi') . '.' . $image->getClientOriginalExtension();
+
+            $request->file('profile_image')->storeAs('public/admin_images', $filenameToStore);
+            $data['profile_image_name'] = $filenameToStore;
+        } else {
+            $data['profile_image_name'] = null;
+        }
+
+        $this->adminModel->admin_update($data, $admin->id);
+
+        return redirect()->back()->with('success', "Your profile updated successfully");
+    }
+
+    public function edit_password()
+    {
+        return view('admin.setting.setting_edit_password', [
+            'title' => 'Password Edit',
+        ]);
+    }
+
+    public function update_password(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required',
+            'password_confirmation' => 'required|same:new_password',
+        ]);
+
+        $admin = Auth::guard('admin')->user();
+
+        $hashedPassword = $admin->password;
+
+        if (Hash::check($request->current_password, $hashedPassword)) {
+
+            Admin::find($admin->id)->update([
+                'password' => bcrypt($request->new_password),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+            return redirect()->back()->with('success', "Your profile updated successfully");
+        } else {
+            return redirect()->back()->with('error', "Current password is incorrect");
+        }
     }
 }

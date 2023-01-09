@@ -21,7 +21,7 @@
                         <span>Users</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">All Users</a></li>                        
+                        <li><a href="{{ route('user.list') }}">All Users</a></li>                        
                     </ul>
                 </li>
 
@@ -31,7 +31,7 @@
                         <span>Admin</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">All Admin</a></li>
+                        <li><a href="{{ route('admin.list') }}">All Admin</a></li>
                         <li><a href="{{ route('admin.register_form') }}">Register Admin</a></li>                            
                     </ul>
                 </li>
