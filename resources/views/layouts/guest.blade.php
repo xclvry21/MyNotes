@@ -54,6 +54,9 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        {{-- favicon --}}
+        <link rel="shortcut icon" href="{{ asset('dashboard_body') }}/assets/images/mynotes_favicon.ico">
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>

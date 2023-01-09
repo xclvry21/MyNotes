@@ -3,21 +3,15 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="index.html" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="{{ asset('dashboard_body') }}/assets/images/logo-sm.png" alt="logo-sm" height="22">
-                    </span>
+                <a href="{{ route('user.dashboard') }}" class="logo logo-dark">
                     <span class="logo-lg">
-                        <img src="{{ asset('dashboard_body') }}/assets/images/logo-dark.png" alt="logo-dark" height="20">
+                        <img src="{{ asset('dashboard_body') }}/assets/images/mynotes_logo-dark.png" alt="logo-dark" height="60">
                     </span>
                 </a>
 
-                <a href="index.html" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="{{ asset('dashboard_body') }}/assets/images/logo-sm.png" alt="logo-sm-light" height="22">
-                    </span>
+                <a href="{{ route('user.dashboard') }}" class="logo logo-light">
                     <span class="logo-lg">
-                        <img src="{{ asset('dashboard_body') }}/assets/images/logo-light.png" alt="logo-light" height="20">
+                        <img src="{{ asset('dashboard_body') }}/assets/images/mynotes_logo-light.png" alt="logo-light" height="60">
                     </span>
                 </a>
             </div>
@@ -26,23 +20,9 @@
                 <i class="ri-menu-2-line align-middle"></i>
             </button>
 
-            <!-- App Search-->
-            <form class="app-search d-none d-lg-block">
-                <div class="position-relative">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <span class="ri-search-line"></span>
-                </div>
-            </form>
-
         </div>
 
         <div class="d-flex">
-
-            <div class="dropdown d-none d-lg-inline-block ms-1">
-                <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
-                    <i class="ri-fullscreen-line"></i>
-                </button>
-            </div>
 
             <div class="dropdown d-inline-block user-dropdown">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
