@@ -17,5 +17,11 @@ MyNotes is a simple web-app for note-taking using [Laravel](https://laravel.com)
 - **[toastr](https://github.com/CodeSeven/toastr)**
 - **[Select2](https://select2.org)**
 
+___
 
+<p>Create a link of storage folder to public folder:</p>
+
+```javascript
+php artisan storage:link
+```
 
