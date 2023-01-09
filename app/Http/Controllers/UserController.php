@@ -30,7 +30,7 @@ class UserController extends Controller
             'is_archive' => 0,
             'is_trash' => 0
         ])->latest()->get()->count();
-        
+
         $tag_count = Tag::where('user_id', Auth::user()->id)->latest()->get()->count();
 
         $archive_count = Note::where([
@@ -123,7 +123,8 @@ class UserController extends Controller
     {
         if (Auth::guard('web')->attempt([
             'email' => $request['email'],
-            'password' => $request['password']
+            'password' => $request['password'],
+            'email_verified_at' => null
         ])) {
             return redirect()->route('user.dashboard')->with('success', "You've login successfully");
         } else {
@@ -147,7 +148,7 @@ class UserController extends Controller
         return redirect()->route('login')->with('success', "You've logout successfully");
     }
 
-    public function edit_profile(Request $request)
+    public function edit_profile()
     {
         return view('user.setting.setting_edit_profile', [
             'title' => 'Profile Edit',

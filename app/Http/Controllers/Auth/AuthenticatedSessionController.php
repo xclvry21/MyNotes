@@ -28,11 +28,16 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
-
-        $request->session()->regenerate();
-
-        return redirect()->route('user.dashboard');
+        if (Auth::guard('web')->attempt([
+            'email' => $request['email'],
+            'password' => $request['password'],
+            'email_verified_at' => !null
+        ])) {
+            $request->session()->regenerate();
+            return redirect()->route('user.dashboard')->with('success', "You've login successfully");
+        } else {
+            return back()->with('error', 'Invalid credentials');
+        }
     }
 
     /**
