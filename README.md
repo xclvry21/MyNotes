@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://github.com/xclvry21/MyNotes/blob/mybranch1/public/images/mynotes_logo-light.png" width="400" alt="MyNotes"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://github.com/xclvry21/MyNotes/blob/main/public/images/mynotes_logo-light.png" width="400" alt="MyNotes"></a></p>
 
 ## About MyNotes
 
@@ -21,7 +21,13 @@ ___
 
 <p>Create a link of storage folder to public folder:</p>
 
-```javascript
+```
 php artisan storage:link
+```
+
+<p>Run database seeder:</p>
+
+```
+php artisan db:seed
 ```
 
